@@ -1,0 +1,150 @@
+/* WILWATIKTA 3D — interface. Dark translucent panels, gold accents,
+   orange primary buttons. The GPS map screen is TRANSPARENT: its panels
+   are translucent so the living city glows through behind them. */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #14101c;
+  font-family: Arial, Helvetica, sans-serif; color: #f2ede4; }
+#gl { position: fixed; inset: 0; width: 1280px; height: 720px; }
+#fx { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
+.floater { position: absolute; color: #ff5a4d; font-weight: bold; font-size: 20px;
+  text-shadow: 0 2px 4px #000; transform: translate(-50%, -50%); }
+#app { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
+#hud { position: absolute; inset: 0; }
+.hidden { display: none !important; }
+
+/* minimap, top-left */
+#minimap-wrap { position: absolute; top: 14px; left: 14px; width: 220px; }
+#minimap { width: 150px; height: 150px; display: block; }
+#district { margin-top: 6px; background: rgba(10,10,16,0.78); border-radius: 10px;
+  padding: 4px 10px; font-weight: bold; font-size: 14px; letter-spacing: 1px; width: max-content; }
+#street { font-size: 12px; color: #cfc8ba; margin: 3px 0 0 4px; }
+#repbar { width: 150px; height: 7px; background: rgba(255,255,255,0.18); border-radius: 4px; margin-top: 5px; }
+#repbar i { display: block; height: 100%; width: 68%; background: #37c978; border-radius: 4px; }
+#reptext { font-size: 11px; color: #e8e2d4; margin-top: 3px; letter-spacing: 0.5px; }
+
+/* top bar + weapons */
+#topbar { position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+  font-size: 19px; font-weight: bold; text-shadow: 0 2px 4px #000; letter-spacing: 0.5px; }
+#topbar #cash { color: #7ee787; margin-right: 14px; }
+#topbar #stars { color: #ffd34d; margin-right: 14px; }
+#weapons { position: absolute; top: 44px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+.wslot { width: 64px; background: rgba(10,10,16,0.72); border: 2px solid rgba(255,255,255,0.25);
+  border-radius: 10px; text-align: center; padding: 5px 0 4px; position: relative; }
+.wslot.active { border-color: #ff8c1a; background: rgba(255,140,26,0.85); }
+.wslot i { position: absolute; top: 2px; left: 5px; font-size: 10px; font-style: normal; color: #ffd34d; }
+.wslot b { display: block; font-size: 20px; }
+.wslot span { display: block; font-size: 10px; letter-spacing: 0.5px; }
+.wslot em { display: block; font-size: 10px; font-style: normal; color: #ffd34d; }
+#weapon-name { position: absolute; top: 118px; left: 50%; transform: translateX(-50%);
+  font-size: 13px; font-weight: bold; letter-spacing: 1px; text-shadow: 0 2px 4px #000; }
+
+/* right boxes: exactly two */
+.rbox { position: absolute; right: 14px; width: 250px; background: rgba(10,10,16,0.78);
+  border-radius: 12px; padding: 10px 14px; }
+#radio { top: 14px; }
+#radio b { display: block; font-size: 14px; }
+#radio span { display: block; font-size: 12px; color: #cfc8ba; margin-top: 2px; }
+#radio .eq { display: block; height: 10px; margin-top: 5px; width: 64px;
+  background: #ff5a8a; border-radius: 3px; }
+#speedbox { top: 96px; }
+#speedbox b { font-size: 14px; letter-spacing: 1px; }
+#speedbox > span { display: block; font-size: 11px; color: #cfc8ba; margin-top: 2px; }
+#speedbox .cond { height: 8px; background: rgba(255,255,255,0.18); border-radius: 4px; margin: 5px 0 8px; }
+#speedbox .cond i { display: block; height: 100%; background: #37c978; border-radius: 4px; }
+#speedbox .speed b { font-size: 34px; }
+#speedbox .speed span { color: #ffd34d; font-weight: bold; margin-left: 4px; }
+#gear { position: absolute; right: 14px; bottom: 12px; background: rgba(255,255,255,0.15);
+  border-radius: 6px; padding: 2px 8px; font-size: 12px; }
+
+/* mission panel, left */
+#mission { position: absolute; left: 14px; top: 300px; width: 250px;
+  background: rgba(10,10,16,0.78); border-radius: 12px; padding: 12px 14px; }
+#mission .k { font-size: 11px; letter-spacing: 2px; color: #ffd34d; }
+#mission .mname { font-size: 17px; font-weight: bold; color: #ffd34d; margin: 4px 0; line-height: 1.2; }
+#mission .mobj { font-size: 13px; line-height: 1.35; color: #f2ede4; }
+#mission .mrow { display: flex; justify-content: space-between; margin-top: 8px; font-weight: bold; }
+#mission .mbar { height: 7px; background: rgba(255,255,255,0.18); border-radius: 4px; margin-top: 5px; }
+#mission .mbar i { display: block; height: 100%; width: 62%; background: #ffd34d; border-radius: 4px; }
+#mission .mnext { font-size: 12px; margin-top: 8px; color: #cfc8ba; }
+#mission .mdisp { font-size: 12px; margin-top: 6px; line-height: 1.4; color: #9fd8ff; }
+#mission .mhealth { font-size: 12px; margin-top: 8px; }
+#mission .mhealth i { display: inline-block; width: 150px; height: 8px; background: rgba(255,255,255,0.18);
+  border-radius: 4px; vertical-align: middle; }
+#mission .mhealth b { display: block; height: 100%; background: #37c978; border-radius: 4px; }
+
+/* dialogue, bottom-centre */
+#dialog { position: absolute; left: 50%; bottom: 108px; transform: translateX(-50%);
+  display: flex; gap: 12px; align-items: center; width: 480px;
+  background: rgba(10,10,16,0.82); border-radius: 12px; padding: 10px 14px; }
+#dialog canvas { width: 52px; height: 52px; border-radius: 10px; flex: none; }
+#dialog b { color: #ffd34d; font-size: 14px; }
+#dialog span { font-size: 11px; color: #cfc8ba; }
+#dialog p { font-size: 14px; margin-top: 3px; }
+
+/* crew row, bottom-left */
+#crew { position: absolute; left: 14px; bottom: 14px; display: flex; gap: 10px; }
+.member { width: 74px; text-align: center; }
+.member canvas { width: 64px; height: 64px; border-radius: 12px; border: 2px solid rgba(255,255,255,0.35); display: block; margin: 0 auto; }
+.member b { display: block; font-size: 11px; margin-top: 3px; letter-spacing: 0.5px; }
+.member span { display: block; font-size: 10px; color: #ffd34d; }
+
+/* overlays */
+.overlay { position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: flex-start; justify-content: flex-start; padding: 60px 0 0 56px; }
+#title { background: linear-gradient(90deg, rgba(8,8,16,0.55) 0%, rgba(8,8,16,0.05) 55%, rgba(8,8,16,0) 100%); }
+#title h1 { font-size: 96px; letter-spacing: 4px; line-height: 0.95;
+  background: linear-gradient(180deg, #ffe9a8, #ff8c1a); -webkit-background-clip: text; background-clip: text; color: transparent;
+  text-shadow: none; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.6)); }
+#title .sub { font-size: 26px; letter-spacing: 8px; margin-top: 8px; font-weight: bold; }
+#title .quote { margin-top: 10px; font-style: italic; color: #e8e2d4; font-size: 16px;
+  border-left: 3px solid #ff8c1a; padding-left: 10px; }
+#title .btns { display: flex; flex-direction: column; gap: 12px; margin-top: 44px; }
+.btn { pointer-events: auto; cursor: pointer; border: 2px solid rgba(255,255,255,0.4);
+  background: rgba(10,10,16,0.72); color: #f2ede4; border-radius: 10px;
+  padding: 12px 26px; font-size: 16px; font-weight: bold; letter-spacing: 2px; width: 240px; text-align: left; }
+.btn.primary { background: #ff8c1a; border-color: #ff8c1a; color: #fff; }
+.btn.small { width: auto; padding: 6px 14px; font-size: 13px; }
+.btn:hover { filter: brightness(1.15); }
+#title .foot { position: absolute; bottom: 18px; left: 56px; font-size: 12px; letter-spacing: 1px; color: #d8d2c4; }
+#title .foot-r { position: absolute; bottom: 18px; right: 28px; font-size: 12px; text-align: right; color: #d8d2c4; line-height: 1.5; }
+
+/* big map: TRANSPARENT — the city shows through the panels */
+#bigmap { background: rgba(8, 10, 18, 0.42); padding: 18px 28px; align-items: stretch; }
+.bm-head { align-self: center; font-size: 20px; font-weight: bold; letter-spacing: 2px;
+  background: rgba(10,10,16,0.66); padding: 8px 22px; border-radius: 10px; color: #ffd34d; }
+.bm-cols { display: flex; gap: 18px; margin-top: 14px; flex: 1; min-height: 0; }
+.bm-missions, .bm-stats { width: 250px; background: rgba(10,12,20,0.62); border-radius: 12px; padding: 12px; overflow: auto; }
+.bm-map { flex: 1; display: flex; align-items: center; justify-content: center;
+  background: rgba(10,12,20,0.45); border-radius: 12px; }
+#mapcanvas { max-width: 100%; max-height: 100%; }
+.k { font-size: 12px; letter-spacing: 2px; color: #ffd34d; margin-bottom: 8px; }
+.bm-row { display: flex; justify-content: space-between; font-size: 13px; padding: 5px 4px;
+  border-bottom: 1px solid rgba(255,255,255,0.08); }
+.bm-row.done span { color: #7ee787; }
+.bm-row.active { background: rgba(255,211,77,0.16); border-radius: 6px; }
+.bm-row b { color: #ffd34d; }
+.bm-row i { font-style: normal; color: #cfc8ba; font-size: 11px; }
+.bm-job { margin-top: 14px; }
+.bm-job b { display: block; color: #ffd34d; font-size: 16px; margin: 4px 0; }
+.bm-job span { display: block; font-size: 12px; color: #e8e2d4; line-height: 1.4; }
+.bm-job .dim { color: #9a948a; font-size: 11px; margin-top: 8px; }
+.srow { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 2px;
+  border-bottom: 1px solid rgba(255,255,255,0.08); }
+.ring { width: 92px; height: 92px; border-radius: 50%; margin: 14px auto;
+  border: 9px solid rgba(255,255,255,0.15); border-top-color: #ffd34d; border-right-color: #ffd34d;
+  display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.legend { display: flex; flex-direction: column; gap: 6px; font-size: 12px; margin: 6px 0 14px; }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 8px; vertical-align: middle; }
+.bm-stats .btn { width: 100%; text-align: center; margin-top: 8px; }
+
+/* upgrade + passed + pause */
+#upgrade, #passed, #pause { background: rgba(8,8,16,0.72); align-items: center; justify-content: center; padding: 0; }
+#upgrade h2, #passed h2, #pause h2 { font-size: 34px; letter-spacing: 2px; color: #ffd34d; margin-bottom: 18px; }
+.up-row { display: flex; gap: 16px; align-items: center; width: 640px; padding: 10px 4px;
+  border-bottom: 1px solid rgba(255,255,255,0.1); }
+.up-row b { width: 170px; }
+.up-row span { flex: 1; font-size: 13px; color: #cfc8ba; }
+.up-row i { font-style: normal; color: #ffd34d; font-weight: bold; }
+#passed-body { font-size: 18px; line-height: 1.7; text-align: center; margin-bottom: 20px; }
+#passed-body b { color: #7ee787; }
+.dim { color: #9a948a; }
